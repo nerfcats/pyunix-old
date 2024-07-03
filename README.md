@@ -45,3 +45,8 @@ void kernel_shutdown();
 ```
 The `terminal_kill_process()` call includes a `is_kernel` attribute. Attempting to kill a system process such as `init` initiates a kernel panic.
 However, if `is_kernel` is set to true, the system process protection is overrided.
+`kernel_init()`: This call is ran before the kernel is started. It does nothing, but you can put code to run there before the kernel is started.
+`kernel_start()`: Initializes the kernel.
+`kernel_switch_to_real_root_file_system()`: Switches from initramfs to root file system.
+`kernel_shutdown()`: Kills init and shuts down system. (TO-DO: kill all running processes).
+`kernel_panic(reason)`: Initiates a kernel panic. Reason, connected devices, and version string spat out before hanging.
