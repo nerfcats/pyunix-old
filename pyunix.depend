@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1720036767 source:c:\users\noah\documents\pyunix\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<time.h>
+	<stdbool.h>
+
