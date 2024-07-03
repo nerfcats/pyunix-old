@@ -5,7 +5,7 @@
 #include <time.h>
 #include <stdbool.h>
 
-const char version[] = "PYUNIX KERNEL 0.1";
+const char version[] = "PYUNIX KERNEL 0.0.1";
 
 // Function to simulate realistic delay
 void realistic_delay() {
@@ -25,7 +25,7 @@ void kernel_init();
 void kernel_start();
 void kernel_switch_to_real_root_filesystem();
 void kernel_shutdown();
-void kernel_panic(const char* reason); // New function for kernel panic
+void kernel_panic(const char* reason);
 void initramfs_load();
 void init_system_start();
 void init_system_create_startup_processes();
