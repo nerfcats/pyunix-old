@@ -1,3 +1,17 @@
+/*
+TO-DO:
+Put limit on how much memory you can allocate to a process
+    - Setting the allocated memory too high or in the negatives bugs out the memory manager.
+    - Setting the allocated memory too high or in the negatives while creating the process bugs out the process creator, process doesn't appear in ps (Process Show)
+Out of memory manager to terminate processes using too much memory
+Add more commands
+    - echo
+    - reboot (reboot the PYunix system)
+    File management
+        Create, modify, delete files on real users PC
+        Add warning saying that PYunix is NOT responsible for any damage the user causes from running file management commands
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,22 +19,22 @@
 #include <time.h>
 #include <stdbool.h>
 
-const char version[] = "PYUNIX KERNEL 0.0.1";
+const char version[] = "PYunix microkernel v0.2.0-alpha";
 
-// Function to simulate realistic delay
-void realistic_delay() {
-    usleep((rand() % 50000) + 50000);  // sleep for 0.05 to 0.1 seconds
+void vwait() {
+    srand(time(NULL));
+    usleep((rand() % 50000) + 50000);
 }
 
-// BIOS class
+// BIOS calls
 void bios_initialize();
 void load_kernel();
 
-// Bootloader class
+// Bootloader calls
 void bootloader_load_kernel();
 void kernel_start();
 
-// Kernel class
+// Kernel calls
 void kernel_init();
 void kernel_start();
 void kernel_switch_to_real_root_filesystem();
@@ -47,7 +61,6 @@ void terminal_free_memory(const char* process);
 void terminal_start_process(const char* process, int size);
 void terminal_list_processes();
 void terminal_kill_process(const char* process, bool is_kernel);
-void kernel_shutdown();
 
 typedef struct {
     char name[50];
@@ -62,26 +75,26 @@ int device_count = 0;
 char devices[100][50];
 
 int main() {
-    srand(time(NULL));  // Seed the random number generator
     bios_initialize();
     device_manager_add_device("Disk");
     device_manager_add_device("Network Adapter");
+    device_manager_add_device("Display Adapter");
     device_manager_list_devices();
     terminal_start();
     return 0;
 }
 
 void bios_initialize() {
-    printf("BIOS: Initializing hardware components...\n");
-    realistic_delay();
+    /*printf("BIOS: Initializing hardware components...\n");
+    vwait();
     printf("BIOS: Performing POST...\n");
-    realistic_delay();
+    vwait();*/
     bootloader_load_kernel();
 }
 
 void bootloader_load_kernel() {
-    printf("Bootloader: Loading Linux kernel...\n\n");
-    realistic_delay();
+    printf("Loading PYunix kernel...\n\n");
+    vwait();
     kernel_init();
     kernel_start();
 }
@@ -91,30 +104,29 @@ void kernel_init() {
 }
 
 void kernel_start() {
-    printf("Kernel: Starting initialization...\n");
-    realistic_delay();
+    printf("kernel: Initializing...\n");
+    vwait();
     initramfs_load();
     kernel_switch_to_real_root_filesystem();
     init_system_start();
-    printf("Kernel: Initialization complete.\n");
-    realistic_delay();
+    printf("kernel: Initialization complete.\n");
+    vwait();
 }
 
 void kernel_switch_to_real_root_filesystem() {
-    printf("Kernel: Switching to real root filesystem...\n");
-    realistic_delay();
+    printf("kernel: Switching to root filesystem...\n");
+    vwait();
 }
 
 void kernel_shutdown() {
-    printf("Kernel: Shutting down system...\n");
-    realistic_delay();
-    printf("Kernel: Stopping system services...\n");
-    realistic_delay();
+    printf("kernel: Shutting down system...\n");
+    printf("kernel: Stopping system services...\n");
+    vwait();
     terminal_kill_process("init", true);
-    realistic_delay();
-    printf("Kernel: Unmounting filesystems...\n");
-    realistic_delay();
-    printf("Kernel: Shutdown complete.\n");
+    vwait();
+    printf("kernel: Unmounting filesystems...\n");
+    vwait();
+    printf("kernel: Ready to power off\n");
     exit(0);
 }
 
@@ -124,12 +136,19 @@ void kernel_panic(const char* reason) {
     List devices from device manager
     Hang the system
     */
+    vwait();
     printf("\n\n-[ KERNEL PANIC START\n\n");
+    printf("panic: KERNEL PANIC! :(\n");
     printf("panic: %s\n\n", reason);
     // Additional actions to handle kernel panic can be added here
+    vwait();
     printf("panic: List devices\n");
     device_manager_list_devices();
     printf("panic: Version string: %s\n", version);
+    printf("panic: dumping memory\n");
+    for (int i = 0; i < process_count; i++) {
+        printf("  - %s: %dMB\n", processes[i].name, processes[i].memory_size);
+    }
     printf("panic: We are hanging here...");
     printf("\n\nKERNEL PANIC END ]-\n\n");
     for (;; ) {
@@ -138,20 +157,20 @@ void kernel_panic(const char* reason) {
 }
 
 void initramfs_load() {
-    printf("Initramfs: Loading initial RAM disk...\n");
-    realistic_delay();
+    printf("initramfs: Loading initial RAM disk...\n");
+    vwait();
 }
 
 void init_system_start() {
-    printf("Init System: Starting system services and processes...\n");
-    realistic_delay();
+    printf("init: Starting system services and processes...\n");
+    vwait();
     init_system_create_startup_processes();
     process_manager_schedule();
 }
 
 void init_system_create_startup_processes() {
     process_manager_create_process("init");
-    memory_manager_allocate("init", 31);
+    memory_manager_allocate("init", 32);
 }
 
 void process_manager_create_process(const char* name) {
@@ -159,14 +178,14 @@ void process_manager_create_process(const char* name) {
     strcpy(processes[process_count].state, "ready");
     processes[process_count].memory_size = 0;
     process_count++;
-    printf("Process Manager: Created process %s\n", name);
+    printf("process_manager: Created process %s\n", name);
 }
 
 void process_manager_schedule() {
-    printf("Process Manager: Scheduling processes...\n");
+    printf("process_manager: Scheduling processes...\n");
     for (int i = 0; i < process_count; i++) {
         process_run(processes[i].name);
-        realistic_delay();
+        vwait();
         process_wait(processes[i].name);
     }
 }
@@ -186,7 +205,7 @@ void memory_manager_allocate(const char* name, int size) {
             break;
         }
     }
-    printf("Memory Manager: Allocated %dMB to %s\n", size, name);
+    printf("mem_manager: Allocated %dMB to %s\n", size, name);
 }
 
 void memory_manager_free(const char* name) {
@@ -196,12 +215,12 @@ void memory_manager_free(const char* name) {
             break;
         }
     }
-    printf("Memory Manager: Freed memory from %s\n", name);
+    printf("mem_manager: Freed memory from %s\n", name);
 }
 
 void device_initialize(const char* name) {
     printf("Device %s: Initialized\n", name);
-    realistic_delay();
+    vwait();
 }
 
 void device_manager_add_device(const char* name) {
@@ -211,14 +230,14 @@ void device_manager_add_device(const char* name) {
 }
 
 void device_manager_list_devices() {
-    printf("Device Manager: Listing devices...\n");
+    printf("dev_manager: Listing devices...\n");
     for (int i = 0; i < device_count; i++) {
         printf("- %s\n", devices[i]);
     }
 }
 
 void terminal_start() {
-    printf("\nPYUNIX interactive shell. Type 'help' for commands.\n");
+    printf("\nPYunix interactive shell. Type 'help' for commands.\n");
     printf("Kernel version string: %s\n", version);
     char command[100];
     while (1) {
@@ -305,12 +324,13 @@ void terminal_list_processes() {
 
 void terminal_kill_process(const char* process, bool is_kernel) {
     if (strcmp(process, "init") == 0 && !is_kernel) {
-        kernel_panic("Attempted to kill init!");
+        kernel_panic("Attempted to kill init! Process protected: is_kernel from system call was false");
         return;
     }
 
     for (int i = 0; i < process_count; i++) {
         if (strcmp(processes[i].name, process) == 0) {
+            memory_manager_free(process);
             for (int j = i; j < process_count - 1; j++) {
                 processes[j] = processes[j + 1];
             }
@@ -319,5 +339,5 @@ void terminal_kill_process(const char* process, bool is_kernel) {
             return;
         }
     }
-    printf("Process %s not found\n", process);
+    printf("Process %s not found.\n", process);
 }
