@@ -1,13 +1,12 @@
 # PYunix
 PYunix (pico unix) is a tiny kernel/microkernel simulation program with a functional terminal and multiple kernel system calls. It mimics and is basically an oversimplifed version of the Linux kernel, that you can run as one program itself.
 ## Installation
-You can build main.c with a C/C++ compiler such as GCC, or download and run the already compiled .exe file.
+You can build with a C/C++ compiler such as GCC, or download and run the already compiled .exe file.
 
-I have only tested this on Windows and Android. Compiling the source and running it on your target OS may work. I basically have never coded in macOS and Linux so I really don't know.
+I have only tested this on Windows. Compiling the source and running it on your target OS may work. I basically have never coded in macOS and Linux so I really don't know.
 
-To run on Android, download the main.c file, download an IDE such as Cxxdroid, and run the code.
+It is possible to run this on Android since there are some C/C++ IDEs for Android.
 ## Contributing and Editing
-The source comes with Code::Blocks files, so you can easily edit and compile the code yourself and experiment.
 
 Contributions to PYUNIX are very welcome. I am a beginner coder so help is appreciated.
 ## Terminal Commands
