@@ -1,7 +1,7 @@
 # PYUNIX
 PYUNIX is a tiny kernel simulation program with a functional terminal and multiple kernel system calls. It mimics and is basically an oversimplifed version of the Linux kernel, that you can run as a program itself.
 ## Installation
-You can build main.c with a C/C++ compiler such as GCC, or download and run the already compiled main.exe file.
+You can build main.c with a C/C++ compiler such as GCC, or download and run the already compiled .exe file.
 
 I have only tested this on Windows and Android. Compiling the source and running it on your target OS may work. I basically have never coded in macOS and Linux so I really don't know.
 
