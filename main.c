@@ -1,13 +1,11 @@
 /*
 TO-DO:
-Put stuff as modules so not everything is one file
 Put limit on how much memory you can allocate to a process
     - Setting the allocated memory too high or in the negatives bugs out the memory manager.
     - Setting the allocated memory too high or in the negatives while creating the process bugs out the process creator, process doesn't appear in ps (Process Show)
 Out of memory manager to terminate processes using too much memory
 Prevent user from creating same process twice, bugs out the system
 Add more commands
-    - echo
     - reboot (reboot the PYunix system)
     File management
         Create, modify, delete files on real users PC
@@ -26,12 +24,15 @@ Add more commands
 #include "kernel/kernel.h"
 #include "terminal/terminal.h"
 
-void vwait() {
+void vwait()
+{
+    // Adds a simulated delay running everything. Comment the following code to disable.
     srand(time(NULL));
     usleep((rand() % 50000) + 50000);
 }
 
-int main() {
+int main()
+{
     bios_initialize(); // Initialize the system and start the kernel
 
     // Add devices

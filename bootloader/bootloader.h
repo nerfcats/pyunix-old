@@ -1,11 +1,15 @@
 #ifndef BOOTLOADER_H_INCLUDED
 #define BOOTLOADER_H_INCLUDED
 
+void vwait();
+
 // Bootloader calls
 void bootloader_load_kernel();
+void kernel_init();
 void kernel_start();
 
-void bootloader_load_kernel() {
+void bootloader_load_kernel()
+{
     printf("Press ENTER to boot PYunix...\n");
     getchar();
     printf("Loading PYunix kernel...\n\n");

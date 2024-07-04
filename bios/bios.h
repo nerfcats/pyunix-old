@@ -4,8 +4,10 @@
 // BIOS calls
 void bios_initialize();
 void load_kernel();
+void bootloader_load_kernel();
 
-void bios_initialize() {
+void bios_initialize()
+{
     bootloader_load_kernel();
 }
 
