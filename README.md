@@ -3,7 +3,9 @@ PYUNIX is a tiny kernel simulation program with a functional terminal and multip
 ## Installation
 You can build main.c with a C/C++ compiler such as GCC, or download and run the already compiled main.exe file.
 
-I have only tested this on Windows. Compiling the source and running it on your target OS may work. I basically have never coded in macOS and Linux so I really don't know.
+I have only tested this on Windows and Android. Compiling the source and running it on your target OS may work. I basically have never coded in macOS and Linux so I really don't know.
+
+To run on Android, download the main.c file, download an IDE such as Cxxdroid, and run the code.
 ## Terminal Commands
 Running `help` in the terminal shows available commands.
 ```
