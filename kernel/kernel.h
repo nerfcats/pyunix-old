@@ -23,13 +23,7 @@ void memory_manager_free(const char* name);
 void device_initialize(const char* name);
 void device_manager_add_device(const char* name);
 void device_manager_list_devices();
-void terminal_start();
-void terminal_print_help();
-void terminal_allocate_memory(const char* process, int size);
-void terminal_free_memory(const char* process);
-void terminal_start_process(const char* process, int size);
-void terminal_list_processes();
-void terminal_kill_process(const char* process, bool is_kernel);
+
 
 typedef struct {
     char name[50];

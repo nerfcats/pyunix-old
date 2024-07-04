@@ -1,6 +1,15 @@
 #ifndef TERMINAL_H_INCLUDED
 #define TERMINAL_H_INCLUDED
 
+// Terminal functions
+void terminal_start(); // Start terminal
+void terminal_print_help(); // Print help
+void terminal_allocate_memory(const char* process, int size); // Allocate
+void terminal_free_memory(const char* process); // Free memory from process
+void terminal_start_process(const char* process, int size); // Start process
+void terminal_list_processes(); // List processes
+void terminal_kill_process(const char* process, bool is_kernel); // Kill process
+
 void terminal_start() {
     printf("\nPYunix interactive shell. Type 'help' for commands.\n");
     printf("Kernel version string: %s\n", version);
