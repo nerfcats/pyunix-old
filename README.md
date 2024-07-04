@@ -11,7 +11,7 @@ The source comes with Code::Blocks files, so you can easily edit and compile the
 
 Contributions to PYUNIX are very welcome. I am a beginner coder so help is appreciated.
 ## Terminal Commands
-Running `help` in the terminal shows available commands.
+Running `help` in the terminal shows available commands. Updated as of `0.1.0`
 ```
 allocate <process> <size> - Allocate memory to a process
 free <process> - Free memory from a process
@@ -22,7 +22,7 @@ exit - Exit the terminal and shut down the system
 ```
 Currently only commands are for managing processes (that do nothing, lol). I plan to add more, for example creating, editing, deleting files, etc.
 ## System Calls
-These are the various system calls you can use to interact with the mini PYUNIX kernel.
+These are the various system calls you can use to interact with the mini PYUNIX kernel. Updated as of `0.1.0`
 ```
 void kernel_init();
 void kernel_start();
