@@ -1,7 +1,9 @@
 # PYUNIX
-PYUNIX is a tiny kernel simulation program with a functional terminal and multiple kernel system calls
+PYUNIX is a tiny kernel simulation program with a functional terminal and multiple kernel system calls. It mimics and is basically an oversimplifed version of the Linux kernel, that you can run as a program itself.
 ## Installation
-You can build main.c with a C compiler such as GCC, or download and run the already compiled main.exe file.
+You can build main.c with a C/C++ compiler such as GCC, or download and run the already compiled main.exe file.
+
+I have only tested this on Windows. Compiling the source and running it on your target OS may work. I basically have never coded in macOS and Linux so I really don't know.
 ## Terminal Commands
 Running `help` in the terminal shows available commands.
 ```
@@ -12,6 +14,7 @@ ps - List all processes that are currently running
 kill <process> - Kill a running process
 exit - Exit the terminal and shut down the system
 ```
+Currently only commands are for managing processes (that do nothing, lol). I plan to add more, for example creating, editing, deleting files, etc.
 ## System Calls
 These are the various system calls you can use to interact with the mini PYUNIX kernel.
 ```
@@ -41,7 +44,6 @@ void terminal_free_memory(const char* process);
 void terminal_start_process(const char* process, int size);
 void terminal_list_processes();
 void terminal_kill_process(const char* process, bool is_kernel);
-void kernel_shutdown();
 ```
 The `terminal_kill_process()` call includes a `is_kernel` attribute. Attempting to kill a system process such as `init` initiates a kernel panic.
 However, if `is_kernel` is set to true, the system process protection is overrided.
@@ -54,4 +56,4 @@ However, if `is_kernel` is set to true, the system process protection is overrid
 
 `kernel_shutdown()`: Kills init and shuts down system. (TO-DO: kill all running processes).
 
-`kernel_panic(reason)`: Initiates a kernel panic. Reason, connected devices, and version string spat out before hanging.
+`kernel_panic(reason)`: Initiates a kernel panic. Reason, connected devices, and version string spat out before hanging the system.
