@@ -6,6 +6,10 @@ You can build main.c with a C/C++ compiler such as GCC, or download and run the 
 I have only tested this on Windows and Android. Compiling the source and running it on your target OS may work. I basically have never coded in macOS and Linux so I really don't know.
 
 To run on Android, download the main.c file, download an IDE such as Cxxdroid, and run the code.
+## Contributing and Editing
+The source comes with Code::Blocks files, so you can easily edit and compile the code yourself and experiment.
+
+Contributions to PYUNIX are very welcome. I am a beginner coder so help is appreciated.
 ## Terminal Commands
 Running `help` in the terminal shows available commands.
 ```
