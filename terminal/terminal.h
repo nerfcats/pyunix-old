@@ -17,7 +17,8 @@ void terminal_start()
 {
     printf("\nPYunix interactive shell. Type 'help' for commands.\n");
     printf("Version: %s\n", version);
-    printf("WARNING: This is a development version of PYunix. Things may break.\n");
+    printf("%s\033[1mWARNING: This is a development version of PYunix. Things may break.\n", KRED);
+    printf("%s", KNRM);
     printf("For the latest version of PYunix, go to https://github.com/noahdossan/pyunix/releases\n\n");
     char command[100];
     while (1 && strcmp(kernel_state, "running") == 0)
@@ -62,10 +63,17 @@ void terminal_start()
         {
             char *process = strtok(NULL, " ");
             char *size_str = strtok(NULL, " ");
+            int size = atoi(size_str);
             if (process != NULL && size_str != NULL)
             {
-                int size = atoi(size_str);
-                terminal_start_process(process, size);
+                if (size > 4096 || size < 1) 
+                {
+                    printf("ERR: Defined memory size is too big or too small\n");
+                } else 
+                {
+                    int size = atoi(size_str);
+                    terminal_start_process(process, size);
+                }
             }
             else
             {
@@ -107,6 +115,10 @@ void terminal_start()
         else if (strcmp(cmd, "reboot") == 0)
         {
             kernel_shutdown(true);
+        }
+        else if (strcmp(cmd, "man_kernel_panic") == 0)
+        {
+            kernel_panic("Kernel panic manually initiated by user");
         }
         else
         {

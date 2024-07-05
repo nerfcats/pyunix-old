@@ -4,6 +4,7 @@
 #include <stdbool.h> // for bool type
 #include <stdio.h>   // for printf
 #include <string.h>  // for strcpy
+#include <stdlib.h>  // for exit
 
 void vwait();
 void terminal_kill_process(const char* process, bool is_kernel);
@@ -22,6 +23,7 @@ char kernel_state[] = "running";
 #include "mem_man.h"
 #include "dev_man.h"
 #include "panic.h"
+#include "color.h"
 
 void kernel_init()
 {
@@ -50,8 +52,16 @@ void kernel_shutdown(bool reset)
     printf("kernel: Shutting down system...\n");
     printf("kernel: Stopping system services...\n");
     vwait();
-    terminal_kill_process("init", true);
-    vwait();
+    
+    // Weird bug in which the loop doesn't terminate all processes, run the loop 100 times to make sure all processes are terminated
+    for (int i = 0; i < 100; i++) 
+    {
+        for (int i = 0; i < process_count; i++)
+        {
+            terminal_kill_process(processes[i].name, true);
+        }
+    }
+
     printf("kernel: Unmounting filesystems...\n");
     vwait();
     printf("kernel: Ready to power off\n");
@@ -63,3 +73,4 @@ void kernel_shutdown(bool reset)
 }
 
 #endif // KERNEL_H_INCLUDED
+

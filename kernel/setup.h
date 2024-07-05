@@ -36,6 +36,13 @@ void device_initialize(const char* name);
 void device_manager_add_device(const char* name);
 void device_manager_list_devices();
 
+void clear_scr();
+
+void clear_scr()
+{
+  const char *CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J";
+  write(STDOUT_FILENO, CLEAR_SCREEN_ANSI, 11);
+}
 
 typedef struct
 {

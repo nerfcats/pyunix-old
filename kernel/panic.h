@@ -11,7 +11,7 @@ void kernel_panic(const char* reason)
     Hang the system
     */
     vwait();
-    printf("\n\n-[ KERNEL PANIC START\n\n");
+    printf("\n-[ KERNEL PANIC START\n");
     printf("KERNEL PANIC! ):\n");
     printf("Kernel panic - not syncing: %s\n\n", reason);
     // Additional actions to handle kernel panic can be added here
@@ -24,8 +24,7 @@ void kernel_panic(const char* reason)
         printf("  - %s: %dMB\n", processes[i].name, processes[i].memory_size);
     }
     printf("Please report this error on Github if possible!\n");
-    printf("We are hanging here...");
-    printf("\n\nKERNEL PANIC END ]-\n");
+    printf("\nKERNEL PANIC END ]-\n");
 
     // Hang the system to prevent other stuff from happening
     for (;; )

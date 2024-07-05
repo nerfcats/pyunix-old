@@ -1,15 +1,11 @@
 /*
 TO-DO:
-Put limit on how much memory you can allocate to a process
-    - Setting the allocated memory too high or in the negatives bugs out the memory manager.
-    - Setting the allocated memory too high or in the negatives while creating the process bugs out the process creator, process doesn't appear in ps (Process Show)
 Out of memory manager to terminate processes using too much memory
 Prevent user from creating same process twice, bugs out the system
 Add more commands
-    - reboot (reboot the PYunix system)
+    - reboot (reboot the PYunix system [bugged out, idk how to implement that])
     File management
         Create, modify, delete files on real users PC
-        Add warning saying that PYunix is NOT responsible for any damage the user causes from running file management commands
 */
 
 #include <stdio.h>
@@ -19,7 +15,7 @@ Add more commands
 #include <time.h>
 #include <stdbool.h>
 
-#include "BIOS/bios.h"
+#include "bios/bios.h"
 #include "bootloader/bootloader.h"
 #include "kernel/kernel.h"
 #include "terminal/terminal.h"
@@ -27,8 +23,8 @@ Add more commands
 void vwait()
 {
     // Adds a simulated delay running everything. Comment the following code to disable.
-    srand(time(NULL));
-    usleep((rand() % 50000) + 50000);
+    // srand(time(NULL));
+    // usleep((rand() % 50000) + 50000);
 }
 
 int main()
@@ -36,12 +32,17 @@ int main()
     bios_initialize(); // Initialize the system and start the kernel
 
     // Add devices
-    device_manager_add_device("Disk");
-    device_manager_add_device("Network Adapter");
-    device_manager_add_device("Display Adapter");
+    device_manager_add_device("Terminal");
     device_manager_list_devices();
+
+    printf("Press ENTER to continue...");
+    getchar();
+    clear_scr();
 
     // Start the terminal
     terminal_start();
+    
+    // Start a kernel panic if loop is broken
+    kernel_panic("Program loop broken; was the system shutdown correctly?");
     return 0;
 }
