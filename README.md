@@ -12,7 +12,7 @@ Contributions to PYUNIX are very welcome. I am a beginner so help is appreciated
 
 A lot of the features are .h files in their respective directories. To add or modify a kernel feature/call update the kernel/setup.h file.
 ## Terminal Commands
-Running `help` in the terminal shows available commands. Updated as of `0.3.0`
+Running `help` in the terminal shows available commands. Updated as of `0.3.1`
 ```
 allocate <process> <size> - Allocate memory to a process
 free <process> - Free memory from a process
