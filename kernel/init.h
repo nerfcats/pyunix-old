@@ -5,13 +5,15 @@ void vwait();
 
 void initramfs_load()
 {
-    printf("initramfs: Loading initial RAM disk...\n");
+    sprintf(formatted_str, "Loading initial RAM disk...");
+    __print("initramfs", formatted_str, "none", false);
     vwait();
 }
 
 void init_system_start()
 {
-    printf("init: Starting system services and processes...\n");
+    sprintf(formatted_str, "Starting system services and processes...");
+    __print("init", formatted_str, "none", false);
     vwait();
     init_system_create_startup_processes();
     process_manager_schedule();

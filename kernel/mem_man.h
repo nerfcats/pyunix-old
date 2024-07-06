@@ -13,7 +13,8 @@ void memory_manager_allocate(const char* name, int size)
             break;
         }
     }
-    printf("mem_manager: Allocated %dMB to %s\n", size, name);
+    sprintf(formatted_str, "Allocated %dMB to %s", size, name);
+    __print("MemoryServer", formatted_str, "none", false);
 }
 
 void memory_manager_free(const char* name)
@@ -26,7 +27,8 @@ void memory_manager_free(const char* name)
             break;
         }
     }
-    printf("mem_manager: Freed memory from %s\n", name);
+    sprintf(formatted_str, "Freed memory from %s", name);
+    __print("MemoryServer", formatted_str, "none", false);
 }
 
 #endif // MEM_MAN_H_INCLUDED

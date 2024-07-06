@@ -15,15 +15,18 @@ void terminal_echo(const char* text);
 
 void terminal_start()
 {
+    clear_scr();
+
     printf("\nPYunix interactive shell. Type 'help' for commands.\n");
     printf("Version: %s\n", version);
-    printf("%s\033[1mWARNING: This is a development version of PYunix. Things may break.\n", KRED);
+    printf("%s\033[1mWARNING: This is a development version of PYunix. Things may break.\n", KYEL);
     printf("%s", KNRM);
-    printf("For the latest version of PYunix, go to https://github.com/noahdossan/pyunix/releases\n\n");
+    printf("For the latest version of PYunix, go to https://github.com/noahdossan/pyunix/releases\n");
+    printf("Or run 'git clone https://github.com/noahdossan/pyunix.git'\n\n");
     char command[100];
     while (1 && strcmp(kernel_state, "running") == 0)
     {
-        printf("# ");
+        printf("[pyunix] # ");
         fgets(command, sizeof(command), stdin);
         command[strcspn(command, "\n")] = 0;  // Remove newline character
         char *cmd = strtok(command, " ");
@@ -120,6 +123,10 @@ void terminal_start()
         {
             kernel_panic("Kernel panic manually initiated by user");
         }
+        else if (strcmp(cmd, "clear") == 0 || strcmp(cmd, "cls") == 0) 
+        {
+            clear_scr();
+        }
         else
         {
             printf("Unknown command: %s; type 'help' for available commands\n", cmd);
@@ -139,6 +146,8 @@ void terminal_print_help()
     printf("  ps - List all processes\n");
     printf("  kill <process> - Kill a running process\n");
     printf("  echo <string> - Repeat text with specified string\n");
+    printf("  clear - Clear the screen\n");
+    printf("  reboot - Resets the system\n");
     printf("  exit - Exit the terminal and shut down the system\n");
 }
 

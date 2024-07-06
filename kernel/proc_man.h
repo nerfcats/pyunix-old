@@ -9,12 +9,14 @@ void process_manager_create_process(const char* name)
     strcpy(processes[process_count].state, "ready");
     processes[process_count].memory_size = 0;
     process_count++;
-    printf("process_manager: Created process %s\n", name);
+    sprintf(formatted_str, "Created process %s", name);
+    __print("ProcessServer", formatted_str, "none", false);
 }
 
 void process_manager_schedule()
 {
-    printf("process_manager: Scheduling processes...\n");
+    sprintf(formatted_str, "Scheduling processes...");
+    __print("ProcessServer", formatted_str, "none", false);
     for (int i = 0; i < process_count; i++)
     {
         process_run(processes[i].name);

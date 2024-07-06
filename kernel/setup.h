@@ -8,7 +8,7 @@ Sets kernel calls and prepares other stuff
 
 void vwait();
 
-const char version[] = "PYunix microkernel v0.3.0-alpha";
+const char version[] = "PYunix microkernel v0.3.1-alpha";
 
 // Kernel calls
 void kernel_init();
@@ -37,6 +37,7 @@ void device_manager_add_device(const char* name);
 void device_manager_list_devices();
 
 void clear_scr();
+void __print(const char* name, const char* text, const char* color_n, bool time);
 
 void clear_scr()
 {

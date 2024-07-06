@@ -18,7 +18,8 @@ void device_manager_add_device(const char* name)
 
 void device_manager_list_devices()
 {
-    printf("dev_manager: Listing devices...\n");
+    sprintf(formatted_str, "Listing devices...");
+    __print("DeviceServer", formatted_str, "none", false);
     for (int i = 0; i < device_count; i++)
     {
         printf("- %s\n", devices[i]);

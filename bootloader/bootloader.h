@@ -10,11 +10,10 @@ void kernel_start();
 
 void bootloader_load_kernel()
 {
-    printf("Press ENTER to boot PYunix...\n");
-    getchar();
-    printf("Loading PYunix kernel...\n\n");
+    printf("Loading PYunix kernel...");
     vwait();
     kernel_init();
+    printf("done.\n\n");
     kernel_start();
 }
 

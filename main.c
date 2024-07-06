@@ -14,11 +14,15 @@ Add more commands
 #include <unistd.h>
 #include <time.h>
 #include <stdbool.h>
+#include <sys/time.h>  // for gettimeofday function
 
 #include "bios/bios.h"
 #include "bootloader/bootloader.h"
 #include "kernel/kernel.h"
 #include "terminal/terminal.h"
+
+// Global variable to store the start time
+struct timeval start_time;
 
 void vwait()
 {
@@ -27,17 +31,31 @@ void vwait()
     // usleep((rand() % 50000) + 50000);
 }
 
+// Function to record the start time
+void record_start_time() {
+    gettimeofday(&start_time, NULL);
+}
+
+// Function to get the elapsed time in milliseconds
+double get_elapsed_time_ms() {
+    struct timeval current_time;
+    gettimeofday(&current_time, NULL);
+
+    // Calculate elapsed time in milliseconds
+    double elapsed_time = (current_time.tv_sec - start_time.tv_sec) * 1000.0;      // seconds to milliseconds
+    elapsed_time += (current_time.tv_usec - start_time.tv_usec) / 1000.0;   // microseconds to milliseconds
+    return elapsed_time;
+}
+
 int main()
 {
+    record_start_time();
+    
     bios_initialize(); // Initialize the system and start the kernel
 
     // Add devices
     device_manager_add_device("Terminal");
     device_manager_list_devices();
-
-    printf("Press ENTER to continue...");
-    getchar();
-    clear_scr();
 
     // Start the terminal
     terminal_start();
