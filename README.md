@@ -20,6 +20,7 @@ start <process> <size> - Start a new process with specified memory
 ps - List all processes that are currently running
 kill <process> - Kill a running process
 echo <string> - Repeat text with specified string
+reboot - Reboot the system
 exit - Exit the terminal and shut down the system
 ```
 ## System Calls
