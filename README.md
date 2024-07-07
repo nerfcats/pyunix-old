@@ -1,3 +1,5 @@
+# Outdated Repository!
+This repository is abandoned. The new reposity is at https://github.com/noahdossan/pyunix
 # PYunix
 PYunix (pico unix) is a tiny kernel/microkernel simulation program with a functional terminal and multiple kernel system calls. It mimics and is basically a very oversimplifed version of the Linux kernel, that you can run as one program itself.
 ## Installation
